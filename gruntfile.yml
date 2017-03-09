@@ -25,8 +25,8 @@ warnLevel: 3
 warnLevel: 5
 
 services:
-  - endPoint: runFeaturePipeline
-    commandLine: ["/riipl/riipl.sh", "^dso", "^dicom", "~output"]
+  - endPoint: features
+    commandLine: ["/riipl/runFeaturePipeline", "^dso", "^dicom", "~output", "1"]
     description: |
       Perform feature extraction on segmented images (DICOM Segmentation Objects, dso) given
       the original DICOM images and the dso.  Returns a directory containing many different files.
