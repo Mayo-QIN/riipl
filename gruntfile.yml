@@ -1,0 +1,44 @@
+# A service consists of the following fields:
+# endPoint      -- REST endpoint, e.g. /rest/service/<endPoint>
+# commandLine   -- Command line to run
+#                  Some special command line parameters are
+#                  #value  -- replace this argument with the parameter from the POST
+#                  <in     -- look for an uploaded file
+#                  >out    -- the process will generate this file for later download
+# description   -- description of the endpoint
+# defaults      -- a hashmap of default values for "#value" parameters
+
+
+# This is the hostname:port that the server is running on.
+# Used for logging and email
+server: localhost:9901
+
+# Working directory
+# This is the directory path used for working files. If left blank,
+# use a system temp directory.
+# NB: To run in the pesscara/grunt docker, this must be set to /data
+directory: /riipl/grunt_work
+
+# Report Warn status to Consul when we have more than warnLevel jobs
+warnLevel: 3
+# Report Critical status to Consul when we have more than criticalLevel jobs
+warnLevel: 5
+
+services:
+  - endPoint: runFeaturePipeline
+    commandLine: ["/riipl/riipl.sh", "^dso", "^dicom", "~output"]
+    description: |
+      Perform feature extraction on segmented images (DICOM Segmentation Objects, dso) given
+      the original DICOM images and the dso.  Returns a directory containing many different files.
+
+      The docker container contains the feature pipeline runner at
+      /riipl/runFeaturePipeline. This program takes in 3 inputs in the
+      following order:
+
+        <directory path with a DSO> <directory path with DICOM series> <output directory path>
+
+      The output directory should contain a boundary image and a scores csv
+      file. The boundary image should show a correct segmentation of a
+      tumor.
+      
+
