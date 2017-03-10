@@ -6,7 +6,7 @@ LABEL maintainer "Daniel Blezek blezek.daniel@mayo.edu"
 # Install Go and build grunt
 RUN apt-get update
 RUN apt-get install -y git-core wget curl ca-certificates
-run wget --no-check-certificate https://storage.googleapis.com/golang/go1.7.linux-amd64.tar.gz
+run wget --no-check-certificate --quiet https://storage.googleapis.com/golang/go1.7.linux-amd64.tar.gz
 RUN tar -C /usr/local -xzf go1.7.linux-amd64.tar.gz
 ENV GOPATH=/root
 ENV PATH=/usr/local/go/bin:${PATH}
