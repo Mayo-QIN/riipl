@@ -27,17 +27,48 @@ warnLevel: 5
 
 services:
   - endPoint: features
-    commandLine: ["/riipl/runFeaturePipeline", "^dso", "^dicom", "~output", "1"]
+    commandLine: ["/riipl/runFeaturePipeline", "^dicom", "~output", "<config.ini", "1"]
+    create_empty_output: true
     description: |
       Perform feature extraction on segmented images (DICOM Segmentation Objects, dso) given
       the original DICOM images and the dso.  Returns a directory containing many different files.
 
+      A sample configuration file is:
+
+      ```
+      global|parallelMode="none"
+      global|numberOfProcessors="max"
+      global|uidToProcess="all"
+      
+      input|component="dsoLoader"
+      
+      featureComputation|components="information,size,intensity,sphericity,roughness,edgeSigmoidFitting,lvii,glcm"
+      
+      output|components="csvOutput,maxAreaImage"
+      
+      edgeSigmoidFitting|numberOfNormals=1200
+      
+      csvOutput|final=true
+      csvOutput|each=false
+      
+      maxAreaImage|each=true
+      maxAreaImage|windowLevelPreset="ctLung"
+      
+      preprocessing|components="maximumConnected,holeFilling"
+      
+      csvOutput|outputRootName="3D"
+      ```
+
+
+    
       The docker container contains the feature pipeline runner at
       /riipl/runFeaturePipeline. This program takes in 3 inputs in the
       following order:
 
+      ```
         <directory path with a DSO> <directory path with DICOM series> <output directory path>
-
+      ```
+        
       The output directory should contain a boundary image and a scores csv
       file. The boundary image should show a correct segmentation of a
       tumor.
