@@ -1,5 +1,5 @@
 # Build from the RIIPL library @ https://hub.docker.com/r/riipl/3d_qifp/
-FROM riipl/3d_qifp
+FROM riipl/3d_qifp:stable
 
 LABEL maintainer "Daniel Blezek blezek.daniel@mayo.edu"
 
