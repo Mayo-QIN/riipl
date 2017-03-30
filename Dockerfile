@@ -20,6 +20,7 @@ WORKDIR /riipl
 RUN mkdir -p /riipl/grunt_work
 RUN cp /root/bin/grunt /bin/grunt
 COPY gruntfile.yml /riipl/gruntfile.yml
+COPY config.ini /riipl/config.ini
 
 # What do we run on startup?
 ENTRYPOINT ["/bin/grunt", "/riipl/gruntfile.yml"]

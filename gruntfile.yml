@@ -27,7 +27,7 @@ warnLevel: 5
 
 services:
   - endPoint: features
-    commandLine: ["/riipl/runFeaturePipeline", "^dicom", "~output", "<config.ini", "1"]
+    commandLine: ["/riipl/runFeaturePipeline", "^dicom", "~output", "/riipl/config.ini", "1"]
     create_empty_output: true
     description: |
       Perform feature extraction on segmented images (DICOM Segmentation Objects, dso) given
